@@ -75,7 +75,7 @@
     "FLY": {
       "symbol": "FLY",
       "asset_class": "equity",
-      "enabled": true,
+      "enabled": false,
       "thesis": "Launch + lunar + defense software. Q2 rev $117.7M (+659% YoY), ~$1.3B backlog, FY26 $420–450M. Support bounce in a downtrend, not trend-follow. ATM IV ~80–93%, markets wide.",
       "technical": "Support bounce in a downtrend. Highest-beta name on the desk.",
       "buy_zone": [20.2, 20.9],
