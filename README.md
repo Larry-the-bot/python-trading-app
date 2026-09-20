@@ -126,6 +126,22 @@ See `desk/PLAYBOOK.md`.
 .venv/bin/python src/playbook.py show SPCX
 ```
 
+## Telegram desk
+
+`src/telegram_desk.py` is observe-only. It reads the trade book (and
+watchlist), overlays a live Robinhood last, and sends one HTML snapshot
+to Telegram. It does not write the book, take the poller lock, or place
+orders. Truncates to Telegram's 4096-character cap.
+
+Chat id: `TELEGRAM_HOME_CHANNEL` or `TELEGRAM_CHAT_ID`. Token:
+`TELEGRAM_BOT_TOKEN`.
+
+```bash
+.venv/bin/python src/telegram_desk.py --once --dry-run
+.venv/bin/python src/telegram_desk.py --once
+.venv/bin/python src/telegram_desk.py --once --no-live
+```
+
 ## Tests
 
 ```bash
