@@ -96,6 +96,24 @@ the latest cycle is live (including crypto); 990s for an equity-only `session=cl
 .venv/bin/python src/monitor_poller.py --once --max-age 90
 ```
 
+## State monitor
+
+`src/state_monitor.py` is a read-only 1-minute gate on latched trade-book
+state. It does not fetch prices and does not fill. Cron wrapper:
+`~/.hermes/scripts/state-monitor.py`.
+
+It prints a deterministic JSON array of names whose `state` is already
+`buy_ready` or `sell_ready`, with a live quote and a valid `instrument`.
+Payload is sorted `symbol` / `state` / `instrument` only — no prices or
+clocks — so an identical armed set does not re-wake the executor.
+
+```bash
+.venv/bin/python src/state_monitor.py --once --book desk/trade_book.json
+```
+
+Hermes cron `monitor=state-monitor.py` (every 1m) wakes the executor
+agent only when that payload changes. Empty `[]` is a silent baseline.
+
 ## Tests
 
 ```bash
