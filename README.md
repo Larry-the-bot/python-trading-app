@@ -3,6 +3,11 @@
 Weekly options **max pain** as a trading condition, plus a last-price poller
 for the desk watchlist.
 
+Shared trade list and conditions live in `desk/trade_book.json`. It is the
+trade state machine: underlying buy/sell levels plus the instrument to
+trade (equity option, or leveraged crypto). The poller updates prices and
+advances `state`; it never fills. See `desk/README.md`.
+
 Max pain is the strike that minimizes the total intrinsic value of open
 call and put interest if the underlying expired at that strike.
 
@@ -42,7 +47,11 @@ Tickers that are also stocks (`UNI`, `W`, `COMP`) are equity unless you add
 `-USD`.
 
 Pass `--watchlist data/watchlist.txt` or up to 10 CLI symbols (not both).
-If you pass neither, the hardcoded desk list is:
+`--book desk/trade_book.json` is the shared conditions file; after each
+snapshot the poller patches `current_price` / `quote` / `signal` for matching
+names and leaves buy/sell/instrument/position alone. If you pass neither symbols nor
+`--watchlist`, enabled book names are the list when the book exists; otherwise
+the hardcoded desk list is:
 
 `SPY QQQ IWM AAPL MSFT NVDA AMZN META GOOGL TLT`
 
