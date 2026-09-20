@@ -1,7 +1,7 @@
 {
   "version": 3,
   "currency": "USD",
-  "updated_at": "2026-09-20T04:33:38.244359+00:00",
+  "updated_at": "2026-09-20T22:11:14.240178+00:00",
   "names": [
     {
       "symbol": "XRP-USD",
@@ -80,13 +80,18 @@
       "asset_class": "equity",
       "enabled": true,
       "current_price": 152.6432,
-      "buy_price": null,
-      "sell_price": null,
+      "buy_price": 151.0,
+      "sell_price": 157.0,
       "position": "flat",
       "state": "watching",
       "state_reason": null,
       "state_changed_at": null,
-      "instrument": null,
+      "instrument": {
+        "kind": "option",
+        "right": "call",
+        "strike": 150.0,
+        "expiration": "2026-10-16"
+      },
       "signal": "watch",
       "quote": {
         "bid": 152.6,
@@ -97,20 +102,25 @@
         "fetched_at": "2026-09-20T00:33:38.039772-04:00",
         "error": null
       },
-      "notes": ""
+      "notes": "Starship F14; 150C Oct16; buy 145-151, sell und. 157"
     },
     {
       "symbol": "FLY",
       "asset_class": "equity",
       "enabled": true,
       "current_price": 20.96,
-      "buy_price": null,
-      "sell_price": null,
+      "buy_price": 20.9,
+      "sell_price": 22.8,
       "position": "flat",
       "state": "watching",
       "state_reason": null,
       "state_changed_at": null,
-      "instrument": null,
+      "instrument": {
+        "kind": "option",
+        "right": "call",
+        "strike": 20.0,
+        "expiration": "2026-10-16"
+      },
       "signal": "watch",
       "quote": {
         "bid": 20.88,
@@ -121,7 +131,28 @@
         "fetched_at": "2026-09-20T00:33:38.039772-04:00",
         "error": null
       },
-      "notes": ""
+      "notes": "Support bounce 20C Oct16; buy 20.20-20.90, sell und. 22.80; limits only"
+    },
+    {
+      "symbol": "NVDA",
+      "asset_class": "equity",
+      "enabled": true,
+      "current_price": null,
+      "buy_price": 219.5,
+      "sell_price": 226.0,
+      "position": "flat",
+      "state": "watching",
+      "state_reason": null,
+      "state_changed_at": null,
+      "instrument": {
+        "kind": "option",
+        "right": "call",
+        "strike": 220.0,
+        "expiration": "2026-10-16"
+      },
+      "signal": "watch",
+      "quote": {},
+      "notes": "Trump-Xi 220C Oct16; buy 216.50-219.50, sell und. 226"
     }
   ]
 }
