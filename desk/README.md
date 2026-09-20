@@ -60,6 +60,10 @@ Crypto:
 
 `null` instrument = watched, not tradable.
 
+Thesis, buy zone, **underlying sell price**, stop, and the single `core`
+contract live in `desk/playbook.json`. See `desk/PLAYBOOK.md`. Sync with
+`src/playbook.py sync`. The poller does not read the playbook.
+
 ## How to edit
 
 Set levels and instrument here. Do not invent contracts or leverage.

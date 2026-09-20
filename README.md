@@ -114,6 +114,18 @@ clocks — so an identical armed set does not re-wake the executor.
 Hermes cron `monitor=state-monitor.py` (every 1m) wakes the executor
 agent only when that payload changes. Empty `[]` is a silent baseline.
 
+## Playbook
+
+`desk/playbook.json` is the generic per-name thesis, buy zone, underlying
+sell price, stop, and **one** core instrument. `src/playbook.py sync`
+writes operator fields onto the trade book. The poller does not read it.
+See `desk/PLAYBOOK.md`.
+
+```bash
+.venv/bin/python src/playbook.py sync --playbook desk/playbook.json --book desk/trade_book.json --watchlist data/watchlist.txt
+.venv/bin/python src/playbook.py show SPCX
+```
+
 ## Tests
 
 ```bash
