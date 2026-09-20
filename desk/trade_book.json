@@ -1,0 +1,127 @@
+{
+  "version": 3,
+  "currency": "USD",
+  "updated_at": "2026-09-20T04:33:38.244359+00:00",
+  "names": [
+    {
+      "symbol": "XRP-USD",
+      "asset_class": "crypto",
+      "enabled": true,
+      "current_price": 1.381824945,
+      "buy_price": null,
+      "sell_price": null,
+      "position": "flat",
+      "state": "watching",
+      "state_reason": null,
+      "state_changed_at": null,
+      "instrument": null,
+      "signal": "watch",
+      "quote": {
+        "bid": 1.3686322,
+        "ask": 1.39501769,
+        "session": "crypto",
+        "stale": false,
+        "source": "robinhood",
+        "fetched_at": "2026-09-20T00:33:38.039772-04:00",
+        "error": null
+      },
+      "notes": ""
+    },
+    {
+      "symbol": "GME",
+      "asset_class": "equity",
+      "enabled": true,
+      "current_price": 22.57,
+      "buy_price": null,
+      "sell_price": null,
+      "position": "flat",
+      "state": "watching",
+      "state_reason": null,
+      "state_changed_at": null,
+      "instrument": null,
+      "signal": "watch",
+      "quote": {
+        "bid": 22.57,
+        "ask": 22.6,
+        "session": "closed",
+        "stale": true,
+        "source": "robinhood",
+        "fetched_at": "2026-09-20T00:33:38.039772-04:00",
+        "error": null
+      },
+      "notes": ""
+    },
+    {
+      "symbol": "BTC-USD",
+      "asset_class": "crypto",
+      "enabled": true,
+      "current_price": 80423.3986657,
+      "buy_price": null,
+      "sell_price": null,
+      "position": "flat",
+      "state": "watching",
+      "state_reason": null,
+      "state_changed_at": null,
+      "instrument": null,
+      "signal": "watch",
+      "quote": {
+        "bid": 79663.5310486,
+        "ask": 81183.2662828,
+        "session": "crypto",
+        "stale": false,
+        "source": "robinhood",
+        "fetched_at": "2026-09-20T00:33:38.039772-04:00",
+        "error": null
+      },
+      "notes": ""
+    },
+    {
+      "symbol": "SPCX",
+      "asset_class": "equity",
+      "enabled": true,
+      "current_price": 152.6432,
+      "buy_price": null,
+      "sell_price": null,
+      "position": "flat",
+      "state": "watching",
+      "state_reason": null,
+      "state_changed_at": null,
+      "instrument": null,
+      "signal": "watch",
+      "quote": {
+        "bid": 152.6,
+        "ask": 154.0,
+        "session": "closed",
+        "stale": true,
+        "source": "robinhood",
+        "fetched_at": "2026-09-20T00:33:38.039772-04:00",
+        "error": null
+      },
+      "notes": ""
+    },
+    {
+      "symbol": "FLY",
+      "asset_class": "equity",
+      "enabled": true,
+      "current_price": 20.96,
+      "buy_price": null,
+      "sell_price": null,
+      "position": "flat",
+      "state": "watching",
+      "state_reason": null,
+      "state_changed_at": null,
+      "instrument": null,
+      "signal": "watch",
+      "quote": {
+        "bid": 20.88,
+        "ask": 20.96,
+        "session": "closed",
+        "stale": true,
+        "source": "robinhood",
+        "fetched_at": "2026-09-20T00:33:38.039772-04:00",
+        "error": null
+      },
+      "notes": ""
+    }
+  ]
+}
