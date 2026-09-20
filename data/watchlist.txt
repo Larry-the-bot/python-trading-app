@@ -1,7 +1,3 @@
-# Crypto: BTC, XRP. Equity: GME, SPCX, FLY, NVDA.
-XRP
-GME
-BTC
-SPCX
-FLY
+# Equity: NVDA, SPCX.
 NVDA
+SPCX
