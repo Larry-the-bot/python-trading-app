@@ -4,3 +4,5 @@ __pycache__/
 *.pyc
 data/*.jsonl
 data/*.lock
+desk/*.lock
+desk/*.tmp

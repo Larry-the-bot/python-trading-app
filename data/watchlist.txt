@@ -1,12 +1,6 @@
-# Up to 10 names. Equities are bare tickers. Crypto is BTC-USD / BTCUSD
-# or a shortcut (BTC ETH SOL DOGE XRP …). Homonyms like UNI or W need -USD.
-SPY
-QQQ
-IWM
-AAPL
-MSFT
-NVDA
-AMZN
-META
-GOOGL
-TLT
+# Five names. Crypto: BTC, XRP. Equity: GME, SPCX, FLY.
+XRP
+GME
+BTC
+SPCX
+FLY
