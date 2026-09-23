@@ -66,7 +66,7 @@ option premium is not the trigger.
 Each `names[SYMBOL]` (required if armed):
 
 | field | required if armed | meaning |
-|---| ---|---|
+|---|---|---|
 | `symbol` | yes | must match watchlist + book (`SPCX`, `NVDA`, `BTC-USD`, …) |
 | `asset_class` | yes | `equity` \| `crypto` |
 | `enabled` | yes | |
