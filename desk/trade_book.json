@@ -1,85 +1,13 @@
 {
   "version": 3,
   "currency": "USD",
-  "updated_at": "2026-09-20T22:11:14.240178+00:00",
+  "updated_at": "2026-09-23T07:52:58.367447+00:00",
   "names": [
-    {
-      "symbol": "XRP-USD",
-      "asset_class": "crypto",
-      "enabled": true,
-      "current_price": 1.381824945,
-      "buy_price": null,
-      "sell_price": null,
-      "position": "flat",
-      "state": "watching",
-      "state_reason": null,
-      "state_changed_at": null,
-      "instrument": null,
-      "signal": "watch",
-      "quote": {
-        "bid": 1.3686322,
-        "ask": 1.39501769,
-        "session": "crypto",
-        "stale": false,
-        "source": "robinhood",
-        "fetched_at": "2026-09-20T00:33:38.039772-04:00",
-        "error": null
-      },
-      "notes": ""
-    },
-    {
-      "symbol": "GME",
-      "asset_class": "equity",
-      "enabled": true,
-      "current_price": 22.57,
-      "buy_price": null,
-      "sell_price": null,
-      "position": "flat",
-      "state": "watching",
-      "state_reason": null,
-      "state_changed_at": null,
-      "instrument": null,
-      "signal": "watch",
-      "quote": {
-        "bid": 22.57,
-        "ask": 22.6,
-        "session": "closed",
-        "stale": true,
-        "source": "robinhood",
-        "fetched_at": "2026-09-20T00:33:38.039772-04:00",
-        "error": null
-      },
-      "notes": ""
-    },
-    {
-      "symbol": "BTC-USD",
-      "asset_class": "crypto",
-      "enabled": true,
-      "current_price": 80423.3986657,
-      "buy_price": null,
-      "sell_price": null,
-      "position": "flat",
-      "state": "watching",
-      "state_reason": null,
-      "state_changed_at": null,
-      "instrument": null,
-      "signal": "watch",
-      "quote": {
-        "bid": 79663.5310486,
-        "ask": 81183.2662828,
-        "session": "crypto",
-        "stale": false,
-        "source": "robinhood",
-        "fetched_at": "2026-09-20T00:33:38.039772-04:00",
-        "error": null
-      },
-      "notes": ""
-    },
     {
       "symbol": "SPCX",
       "asset_class": "equity",
       "enabled": true,
-      "current_price": 152.6432,
+      "current_price": 154.31,
       "buy_price": 151.0,
       "sell_price": 157.0,
       "position": "flat",
@@ -94,50 +22,21 @@
       },
       "signal": "watch",
       "quote": {
-        "bid": 152.6,
-        "ask": 154.0,
+        "bid": 152.8,
+        "ask": 164.0,
         "session": "closed",
         "stale": true,
-        "source": "robinhood",
-        "fetched_at": "2026-09-20T00:33:38.039772-04:00",
+        "source": "yahoo_stream",
+        "fetched_at": "2026-09-23T03:52:58.283698-04:00",
         "error": null
       },
       "notes": "Starship F14; 150C Oct16; buy 145-151, sell und. 157"
     },
     {
-      "symbol": "FLY",
-      "asset_class": "equity",
-      "enabled": true,
-      "current_price": 20.96,
-      "buy_price": 20.9,
-      "sell_price": 22.8,
-      "position": "flat",
-      "state": "watching",
-      "state_reason": null,
-      "state_changed_at": null,
-      "instrument": {
-        "kind": "option",
-        "right": "call",
-        "strike": 20.0,
-        "expiration": "2026-10-16"
-      },
-      "signal": "watch",
-      "quote": {
-        "bid": 20.88,
-        "ask": 20.96,
-        "session": "closed",
-        "stale": true,
-        "source": "robinhood",
-        "fetched_at": "2026-09-20T00:33:38.039772-04:00",
-        "error": null
-      },
-      "notes": "Support bounce 20C Oct16; buy 20.20-20.90, sell und. 22.80; limits only"
-    },
-    {
       "symbol": "NVDA",
       "asset_class": "equity",
       "enabled": true,
-      "current_price": null,
+      "current_price": 228.75,
       "buy_price": 219.5,
       "sell_price": 226.0,
       "position": "flat",
@@ -151,8 +50,44 @@
         "expiration": "2026-10-16"
       },
       "signal": "watch",
-      "quote": {},
+      "quote": {
+        "bid": 226.99,
+        "ask": 228.8,
+        "session": "closed",
+        "stale": true,
+        "source": "yahoo_stream",
+        "fetched_at": "2026-09-23T03:52:58.283698-04:00",
+        "error": null
+      },
       "notes": "Trump-Xi 220C Oct16; buy 216.50-219.50, sell und. 226"
+    },
+    {
+      "symbol": "XRP-USD",
+      "asset_class": "crypto",
+      "enabled": true,
+      "current_price": 1.6214498,
+      "buy_price": 1.66,
+      "sell_price": 2.0,
+      "position": "flat",
+      "state": "buy_ready",
+      "state_reason": "underlying at or below buy_price",
+      "state_changed_at": "2026-09-23T04:46:55.989375+00:00",
+      "instrument": {
+        "kind": "leveraged",
+        "leverage": 2.0,
+        "side": "long"
+      },
+      "signal": "buy",
+      "quote": {
+        "bid": 1.6062496,
+        "ask": 1.63665,
+        "session": "crypto",
+        "stale": false,
+        "source": "robinhood",
+        "fetched_at": "2026-09-23T03:52:58.283698-04:00",
+        "error": null
+      },
+      "notes": "XRP buy at 1.66"
     }
   ]
 }

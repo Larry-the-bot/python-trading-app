@@ -5,7 +5,6 @@ import pytest
 
 from trade_book import empty_book, load_book, save_book
 
-
 AS_OF = date(2026, 9, 20)
 
 
@@ -97,7 +96,6 @@ def _write_watchlist(path: Path, symbols: list[str]) -> Path:
 
 def _sync(tmp_path: Path, playbook: dict, book: dict, watchlist: list[str], **kwargs):
     from playbook import sync
-
     play_path = _write_json(tmp_path / "playbook.json", playbook)
     book_path = tmp_path / "trade_book.json"
     save_book(book_path, book)
@@ -366,6 +364,7 @@ def test_sync_does_not_invent_quotes_or_positions(tmp_path: Path):
     assert name["quote"]["session"] == "closed"
     assert name["position"] == "flat"
     assert "stop_price" not in name
+    assert "allocation" not in name
 
 
 def test_sync_is_idempotent_and_does_not_drop_non_playbook_rows(tmp_path: Path):
@@ -497,6 +496,7 @@ def test_show_prints_thesis_zone_underlying_sell_stop_core_and_book_state(tmp_pa
                     buy_price=50.0,
                     sell_price=55.0,
                     stop_price=45.0,
+                    allocation=1,
                     notes="one-liner",
                 )
             }
@@ -520,6 +520,7 @@ def test_show_prints_thesis_zone_underlying_sell_stop_core_and_book_state(tmp_pa
     assert "48.0" in out and "50.0" in out
     assert "55.0" in out
     assert "45.0" in out
+    assert "Allocation: $1" in out
     assert "2026-10-16" in out
     assert "watching" in out or "buy_ready" in out
 

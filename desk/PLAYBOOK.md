@@ -31,7 +31,7 @@ Executor must follow these for any symbol. Defaults are also in
 5. **Limit orders only.** Equity options: limit at mid or better. If the
    spread is wider than 8% of mid, pass and retry next live quote. Never
    market-buy small-cap / high-IV names.
-6. **Size.** Default `contracts=1`. Option premium risk must not exceed the
+6. **Size.** `allocation` is the operator's USD notional (default $1). It stays in the playbook — do not copy it onto the book and do not invent a different size. `contracts` defaults to 1. Option premium risk must not exceed the
    dollar risk of `(buy_price − stop_price) × 100` unless the playbook says
    otherwise.
 7. **Same contract out.** On `sell_ready` (underlying last ≥ `sell_price`),
@@ -66,7 +66,7 @@ option premium is not the trigger.
 Each `names[SYMBOL]` (required if armed):
 
 | field | required if armed | meaning |
-|---|---|---|
+|---| ---|---|
 | `symbol` | yes | must match watchlist + book (`SPCX`, `NVDA`, `BTC-USD`, …) |
 | `asset_class` | yes | `equity` \| `crypto` |
 | `enabled` | yes | |
@@ -77,6 +77,7 @@ Each `names[SYMBOL]` (required if armed):
 | `sell_price` | yes | **underlying last at which we sell the instrument** |
 | `targets` | no | further underlying levels after first scale |
 | `stop_price` | yes | executor hard stop on the underlying |
+| `allocation` | no | USD notional for the position. Playbook-only. Default `1`. Do not copy onto the book. |
 | `core` | yes | the single contract we buy and sell |
 | `contracts` | no | default 1 |
 | `do_not_buy` | no | banned contracts / behaviors |
@@ -131,7 +132,6 @@ No code change for names 4–10. Cap 10 enabled names.
 ```
 
 Sync:
-
 - upserts playbook symbols into the book via `trade_book.new_name` / update
 - unions watchlist, cap 10 enabled
 - writes `enabled`, `buy_price`, `sell_price`, `instrument` (legal keys of
@@ -163,8 +163,9 @@ sync, poller, or state monitor. Keep `BOOK_VERSION` at 3.
 
 ## Seed this week
 
-Armed rows live in `desk/playbook.json` (SPCX 150C, NVDA 220C, FLY 20C,
-all 2026-10-16). Friday cash refs (2026-09-18): SPCX 152.71, NVDA 222.27,
-FLY 20.97 — after sync those prints stay `watching` until a **live** dip
-into the zone. GME / XRP-USD / BTC-USD stay unarmed unless operator levels
-are added later.
+Armed rows live in `desk/playbook.json`. As of 2026-09-23 that is SPCX 150C,
+NVDA 220C (both 2026-10-16), and XRP-USD 2x long (buy 1.45–1.53, sell
+underlying 1.68, stop 1.38). XRP stays `watching` until a live print is
+inside the zone — do not lift the zone to chase a print above 1.53.
+GME / BTC-USD stay unarmed unless operator levels are added later.
+Dated pass: `desk/playbooks/2026-09-23-XRP.md`.
