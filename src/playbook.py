@@ -23,7 +23,6 @@ DEFAULT_MAX_ENABLED = 10
 OPTION_KEYS = ("kind", "right", "strike", "expiration")
 LEVERAGED_KEYS = ("kind", "leverage", "side")
 
-
 class PlaybookError(ValueError):
     """Invalid playbook or sync refused."""
 
@@ -35,6 +34,16 @@ def _as_float(value: Any) -> float | None:
         return float(value)
     except (TypeError, ValueError):
         return None
+
+
+def _allocation(entry: dict[str, Any], symbol: str) -> float | None:
+    """USD notional the operator assigned. Playbook-only; never copied onto the book."""
+    if "allocation" not in entry or entry.get("allocation") in (None, ""):
+        return None
+    amount = _as_float(entry.get("allocation"))
+    if amount is None or amount < 0:
+        raise PlaybookError(f"{symbol}: allocation must be a non-negative USD amount")
+    return amount
 
 
 def _canonical(raw: str) -> str:
@@ -134,6 +143,7 @@ def _prepare_entry(key: str, entry: Any, *, as_of: date) -> dict[str, Any]:
             "thesis": str(entry.get("thesis") or ""),
             "buy_zone": None,
             "stop_price": None,
+            "allocation": _allocation(entry, symbol),
             "core": None,
         }
 
@@ -181,6 +191,7 @@ def _prepare_entry(key: str, entry: Any, *, as_of: date) -> dict[str, Any]:
         "thesis": str(entry["thesis"]),
         "buy_zone": [low, high],
         "stop_price": stop_price,
+        "allocation": _allocation(entry, symbol),
         "core": core,
     }
 
@@ -307,6 +318,13 @@ def format_show(symbol: str, playbook_path: str | Path, book_path: str | Path) -
         lines.append(f"Stop: {stop}")
     else:
         lines.append("Stop: (none)")
+    alloc = prepared.get("allocation")
+    if alloc is None:
+        alloc = _as_float(entry.get("allocation"))
+    if alloc is not None:
+        lines.append(f"Allocation: ${alloc:g}")
+    else:
+        lines.append("Allocation: (none)")
     inst = prepared.get("instrument")
     if inst:
         if inst.get("kind") == "option":

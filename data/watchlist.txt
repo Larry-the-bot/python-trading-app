@@ -1,3 +1,4 @@
-# Equity: NVDA, SPCX.
+# Equity: NVDA, SPCX. Crypto: XRP.
 NVDA
 SPCX
+XRP
