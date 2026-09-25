@@ -6,7 +6,6 @@ One watchlist name per line. Stop and contract count come from the playbook
 """
 
 from __future__ import annotations
-
 import json
 from datetime import datetime
 from pathlib import Path
@@ -16,7 +15,6 @@ APP = Path("/opt/data/workspace/trading-python-app")
 BOOK = APP / "desk/trade_book.json"
 PLAYBOOK = APP / "desk/playbook.json"
 NY = ZoneInfo("America/New_York")
-
 
 def _fmt_price(value) -> str:
     if value is None:
@@ -31,7 +29,6 @@ def _fmt_price(value) -> str:
         return f"{number:.4f}".rstrip("0").rstrip(".")
     return f"{number:.6f}".rstrip("0").rstrip(".")
 
-
 def _as_float(value) -> float | None:
     if value is None or value == "":
         return None
@@ -39,7 +36,6 @@ def _as_float(value) -> float | None:
         return float(value)
     except (TypeError, ValueError):
         return None
-
 
 def _fmt_core(inst) -> str:
     if not isinstance(inst, dict) or not inst:
@@ -59,7 +55,6 @@ def _fmt_core(inst) -> str:
         return f"{label} {side}"
     return str(kind or "—")
 
-
 def _aliases(symbol: str) -> set[str]:
     symbol = symbol.strip()
     aliases = {symbol}
@@ -68,7 +63,6 @@ def _aliases(symbol: str) -> set[str]:
     elif symbol and not symbol.endswith("-USD"):
         aliases.add(f"{symbol}-USD")
     return aliases
-
 
 def load_playbook_names() -> list[dict]:
     if not PLAYBOOK.exists():
@@ -88,7 +82,6 @@ def load_playbook_names() -> list[dict]:
         row["_key"] = str(key)
         rows.append(row)
     return rows
-
 
 def match_playbook(symbol: str, buy_price, rows: list[dict]) -> dict | None:
     """Join a book row to a playbook name.
@@ -121,7 +114,6 @@ def match_playbook(symbol: str, buy_price, rows: list[dict]) -> dict | None:
             return hits[0]
     return exact[0] if exact else alias[0]
 
-
 def _fmt_money(value) -> str:
     number = _as_float(value)
     if number is None:
@@ -130,14 +122,12 @@ def _fmt_money(value) -> str:
         return f"${int(number)}"
     return f"${number:.2f}"
 
-
 def format_name(name: dict, playbook: dict | None) -> str:
     symbol = str(name.get("symbol") or "?")
     quote = name.get("quote") if isinstance(name.get("quote"), dict) else {}
     inst = name.get("instrument") if isinstance(name.get("instrument"), dict) else None
     if not inst and isinstance((playbook or {}).get("core"), dict):
         inst = playbook.get("core")
-
     stop = name.get("stop_price")
     pb_label = None
     if stop is None and playbook:
@@ -145,7 +135,6 @@ def format_name(name: dict, playbook: dict | None) -> str:
         pb_key = str(playbook.get("symbol") or playbook.get("_key") or "")
         if pb_key and pb_key != symbol:
             pb_label = pb_key
-
     alloc = name.get("allocation")
     if alloc is None and playbook:
         alloc = playbook.get("allocation")
@@ -181,7 +170,6 @@ def format_name(name: dict, playbook: dict | None) -> str:
         lines.append(f"why: {reason}")
     return "\n".join(lines)
 
-
 def main() -> int:
     if not BOOK.exists():
         print(f"missing {BOOK}")
@@ -191,6 +179,7 @@ def main() -> int:
     except (OSError, json.JSONDecodeError) as exc:
         print(f"trade_book read error: {exc}")
         return 1
+
     now = datetime.now(NY).strftime("%Y-%m-%d %H:%M ET")
     names = book.get("names") or []
     if not names:
@@ -208,8 +197,36 @@ def main() -> int:
         )
         lines.append(format_name(name, playbook))
     print(now + "\n\n" + "\n\n".join(lines))
-    return 0
 
+    # Append holdings block (display-only, from MCP wallet)
+    holdings_path = APP / "desk/holdings.json"
+    try:
+        if holdings_path.exists():
+            h = json.loads(holdings_path.read_text(encoding="utf-8"))
+            acc = str(h.get("account_number") or "")
+            redacted = "••••" + acc[-4:] if len(acc) > 4 else acc
+            h_lines = [f"Agentic wallet {redacted} {h.get('updated_at','')[:19]} {'stale' if h.get('stale') else ''}"]
+            cash = h.get("cash") or {}
+            if cash.get("cash") is not None:
+                h_lines.append(f"cash: ${cash.get('cash')} | bp: ${cash.get('buying_power')}")
+            eq = h.get("equities") or []
+            if eq:
+                h_lines.append(f"equities: {len(eq)}")
+                for e in eq[:3]:
+                    h_lines.append(f"  {e.get('symbol')} {e.get('quantity')} @ {e.get('average_buy_price')}")
+            opt = h.get("options") or []
+            if opt:
+                h_lines.append(f"options: {len(opt)}")
+                for o in opt[:2]:
+                    h_lines.append(f"  {o.get('chain_symbol')} {o.get('type')} {o.get('strike')} {o.get('expiration_date')} {o.get('quantity')}")
+            if h.get("errors"):
+                h_lines.append("errors: " + ", ".join(h["errors"][:2]))
+            print("\n" + "\n".join(h_lines))
+        else:
+            print("\n(wallet file missing - trade book only)")
+    except Exception as exc:
+        print(f"\n(wallet read error: {exc})")
+    return 0
 
 if __name__ == "__main__":
     raise SystemExit(main())

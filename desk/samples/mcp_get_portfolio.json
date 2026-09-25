@@ -1,0 +1,28 @@
+{
+  "tool": "mcp__robinhood__get_portfolio",
+  "account_used": "547525758",
+  "raw": {
+    "data": {
+      "total_value": "12.49",
+      "equity_value": "0",
+      "options_value": "0",
+      "futures_value": "0",
+      "event_contracts_value": "0",
+      "crypto_value": "0",
+      "cash": "12.49",
+      "pending_deposits": "0",
+      "mutual_funds_value": "0",
+      "fixed_income_value": "0",
+      "currency": "USD",
+      "buying_power": {
+        "buying_power": "12.4900",
+        "unleveraged_buying_power": "12.4900",
+        "display_currency": "USD"
+      },
+      "crypto_buying_power": {
+        "buying_power": "12.4900"
+      }
+    }
+  },
+  "note": "Cash and buying_power fields present. No holdings. This is the dedicated agentic account."
+}

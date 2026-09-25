@@ -8,3 +8,8 @@ data/*.pid
 data/*.log
 desk/*.lock
 desk/*.tmp
+desk/holdings.json
+desk/holdings.prev.json
+mcp-tokens/
+**/*token*.json
+**/*secret*.json
