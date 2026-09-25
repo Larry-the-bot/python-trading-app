@@ -1,0 +1,44 @@
+{
+  "tool": "mcp__robinhood__get_accounts",
+  "account_used": null,
+  "raw": {
+    "data": {
+      "accounts": [
+        {
+          "account_number": "5QY95021",
+          "rhs_account_number": "108950213",
+          "rhc_account_number": "311248071755",
+          "type": "margin",
+          "unsettled_funds": "0.0000",
+          "brokerage_account_type": "individual",
+          "is_default": true,
+          "agentic_allowed": false,
+          "option_level": "option_level_2",
+          "management_type": "self_directed",
+          "affiliate": "rhf",
+          "state": "active",
+          "deactivated": false,
+          "permanently_deactivated": false
+        },
+        {
+          "account_number": "547525758",
+          "rhs_account_number": "547525758",
+          "rhc_account_number": "311268110962",
+          "type": "limited_margin",
+          "unsettled_funds": "0.0000",
+          "brokerage_account_type": "individual",
+          "nickname": "Agentic",
+          "is_default": false,
+          "agentic_allowed": true,
+          "option_level": "",
+          "management_type": "self_directed",
+          "affiliate": "rhf",
+          "state": "active",
+          "deactivated": false,
+          "permanently_deactivated": false
+        }
+      ]
+    }
+  },
+  "note": "Primary agentic account for MCP: 547525758 (limited_margin, agentic_allowed=true). Main account 5QY95021 is read-only to this agent."
+}

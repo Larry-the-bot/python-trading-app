@@ -1,0 +1,10 @@
+{
+  "tool": "mcp__robinhood__get_equity_positions",
+  "account_used": "547525758",
+  "raw": {
+    "data": {
+      "positions": []
+    }
+  },
+  "note": "Empty for agentic account. Structure: positions array with symbol, quantity, average_buy_price, etc. when populated."
+}

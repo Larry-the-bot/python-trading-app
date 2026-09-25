@@ -1,0 +1,10 @@
+{
+  "tool": "mcp__robinhood__get_option_positions",
+  "account_used": "547525758",
+  "raw": {
+    "data": {
+      "positions": []
+    }
+  },
+  "note": "get_option_positions exists and returns positions array (can include zero-quantity closed). Structure includes chain_symbol, type, quantity, average_price, expiration_date, option_id, etc. when populated. Options support confirmed for MCP."
+}
