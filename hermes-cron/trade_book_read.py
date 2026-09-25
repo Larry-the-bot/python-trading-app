@@ -179,7 +179,6 @@ def main() -> int:
     except (OSError, json.JSONDecodeError) as exc:
         print(f"trade_book read error: {exc}")
         return 1
-
     now = datetime.now(NY).strftime("%Y-%m-%d %H:%M ET")
     names = book.get("names") or []
     if not names:
@@ -198,35 +197,42 @@ def main() -> int:
         lines.append(format_name(name, playbook))
     print(now + "\n\n" + "\n\n".join(lines))
 
-    # Append holdings block (display-only, from MCP wallet)
-    holdings_path = APP / "desk/holdings.json"
-    try:
-        if holdings_path.exists():
-            h = json.loads(holdings_path.read_text(encoding="utf-8"))
-            acc = str(h.get("account_number") or "")
-            redacted = "••••" + acc[-4:] if len(acc) > 4 else acc
-            h_lines = [f"Agentic wallet {redacted} {h.get('updated_at','')[:19]} {'stale' if h.get('stale') else ''}"]
-            cash = h.get("cash") or {}
-            if cash.get("cash") is not None:
-                h_lines.append(f"cash: ${cash.get('cash')} | bp: ${cash.get('buying_power')}")
-            eq = h.get("equities") or []
-            if eq:
-                h_lines.append(f"equities: {len(eq)}")
-                for e in eq[:3]:
-                    h_lines.append(f"  {e.get('symbol')} {e.get('quantity')} @ {e.get('average_buy_price')}")
-            opt = h.get("options") or []
-            if opt:
-                h_lines.append(f"options: {len(opt)}")
-                for o in opt[:2]:
-                    h_lines.append(f"  {o.get('chain_symbol')} {o.get('type')} {o.get('strike')} {o.get('expiration_date')} {o.get('quantity')}")
-            if h.get("errors"):
-                h_lines.append("errors: " + ", ".join(h["errors"][:2]))
-            print("\n" + "\n".join(h_lines))
-        else:
-            print("\n(wallet file missing - trade book only)")
-    except Exception as exc:
-        print(f"\n(wallet read error: {exc})")
+    # Optional enhancement: --include-wallet flag (default True) + auto-fallback note
+    # To generate holdings.json if missing: run src/robinhood_wallet.py --once --write (or --dry-run)
+    import argparse
+    parser = argparse.ArgumentParser(add_help=False)
+    parser.add_argument("--include-wallet", action="store_true", default=True)
+    args, _ = parser.parse_known_args()
+    if args.include_wallet:
+        holdings_path = APP / "desk/holdings.json"
+        try:
+            if holdings_path.exists():
+                h = json.loads(holdings_path.read_text(encoding="utf-8"))
+                acc = str(h.get("account_number") or "")
+                redacted = "••••" + acc[-4:] if len(acc) > 4 else acc
+                h_lines = [f"Agentic wallet {redacted} {h.get('updated_at','')[:19]} {'stale' if h.get('stale') else ''}"]
+                cash = h.get("cash") or {}
+                if cash.get("cash") is not None:
+                    h_lines.append(f"cash: ${cash.get('cash')} | bp: ${cash.get('buying_power')}")
+                eq = h.get("equities") or []
+                if eq:
+                    h_lines.append(f"equities: {len(eq)}")
+                    for e in eq[:3]:
+                        h_lines.append(f"  {e.get('symbol')} {e.get('quantity')} @ {e.get('average_buy_price')}")
+                opt = h.get("options") or []
+                if opt:
+                    h_lines.append(f"options: {len(opt)}")
+                    for o in opt[:2]:
+                        h_lines.append(f"  {o.get('chain_symbol')} {o.get('type')} {o.get('strike')} {o.get('expiration_date')} {o.get('quantity')}")
+                if h.get("errors"):
+                    h_lines.append("errors: " + ", ".join(h["errors"][:2]))
+                print("\n" + "\n".join(h_lines))
+            else:
+                print("\n(wallet file missing - run robinhood_wallet.py --write to generate)")
+        except Exception as exc:
+            print(f"\n(wallet read error: {exc})")
     return 0
+
 
 if __name__ == "__main__":
     raise SystemExit(main())
